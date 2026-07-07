@@ -62,7 +62,7 @@ export default function CurvePage() {
   );
 
   const twoYear = curve.pillars.find(
-    (p) => Math.abs(p.maturity_years - 10) < 0.01,
+    (p) => Math.abs(p.maturity_years - 2) < 0.01,
   );
 
   const tenYear = curve.pillars.find(
