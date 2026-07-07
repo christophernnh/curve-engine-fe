@@ -58,17 +58,20 @@ export default function CurvePage() {
 
   // Key summary stats from pillars
   const shortest = curve.pillars.find(
-    (p) => Math.abs(p.maturity_years - 2) < 0.01,
+    (p) => Math.abs(p.maturity_years - 0.0833333333) < 0.01,
   );
+
+  const twoYear = curve.pillars.find(
+    (p) => Math.abs(p.maturity_years - 10) < 0.01,
+  );
+
   const tenYear = curve.pillars.find(
     (p) => Math.abs(p.maturity_years - 10) < 0.01,
   );
   const longest = curve.pillars[curve.pillars.length - 1];
 
   const slope =
-    tenYear && shortest
-      ? (tenYear.zero_rate - shortest.zero_rate) * 10000
-      : null;
+    tenYear && twoYear ? (tenYear.zero_rate - twoYear.zero_rate) * 10000 : null;
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -97,7 +100,7 @@ export default function CurvePage() {
         />
         <StatCard
           label="2Y Zero Rate"
-          value={`${((curve.pillars.find((p) => Math.abs(p.maturity_years - 2) < 0.01)?.zero_rate ?? 0) * 100).toFixed(2)}%`}
+          value={`${((twoYear?.zero_rate ?? 0) * 100).toFixed(2)}%`}
           sub="zero rate"
         />
         <StatCard
